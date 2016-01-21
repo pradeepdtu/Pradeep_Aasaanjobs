@@ -1,0 +1,245 @@
+
+1) Help Sheeba out 									    10 marks
+
+Sheeba was asked by a Recruiter to write down 100 numbers (1-100) randomly 
+but making sure that no number is repeated twice. At the end, the Recruiter found 
+out that Sheeba had done her work perfectly, but committed just one mistake of 
+repeating a number twice. Recruiter asked Sheeba that she recruiter her only 
+under one condition! If Sheeba is able to find out the only number which she is 
+repeated in an optimised manner.
+
+Can you write a pseudocode, which can help Sheeba to find out the number which 
+got repeated twice?
+
+CODE:
+
+#include<iostream>
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX_SIZE 100
+
+using namespace std;
+
+
+void printElement(int arr[], int size)
+{
+    int i;
+
+    cout<<"The repeating element is : ";
+    for(i = 0; i < size; i++)
+    {
+        if(arr[abs(arr[i])-1] > 0)
+            arr[abs(arr[i])-1] = -arr[abs(arr[i])-1];
+        else
+            cout<<abs(arr[i])<<" ";
+    }
+}
+
+int main()
+{
+    int n;
+    cout<<"Enter the no. of elements";
+    cin>>n;
+    cout<<"Enter the array elements from 1 to n";
+    int arr[n];
+    for(int i=0;i<n;i++){
+      cin>>arr[i];
+    }
+    printElement(arr, n);
+    return 0;
+}
+
+Time complexity: O(n) and no extra space.
+
+
+
+
+
+2) Design a website for a travel company						     15 marks
+
+(Having the following requirements)
+a. User will have to select an origin and destination location.
+b. User will have to select from and to date.
+c. Display some high resolution images as preview of the location when user 
+d. Show list of all travel destinations available for the selected time frame as hits submit.
+    -> Recommendation (List size 1<=N<=50).
+e. Show fares and other expenses.
+
+Syntax is not a problem, 
+your understanding of the problem statement and approach to the same is of primary concern.
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Travel Website</title>
+  <script>
+   
+    function Write_origin(){
+       document.getElementById("origin").disabled=false;
+       var origin=document.getElementById("selectOrigin");
+       document.getElementById("origin").value()=origin
+       if(origin="chennai"){
+          document.getElementById("chennaiImages").attr("display:none",false);
+       }
+       if(origin="pune"){
+          document.getElementById("puneImages").attr("display:none",false);
+       }
+       
+    }
+    
+     function Write_destination(){
+       document.getElementById("destination").disabled=false;
+       var desti=document.getElementById("selectdestination");
+       document.getElementById("destination").value()=desti;
+    }
+    
+    function calculateFare(){
+        //calculate fare by using distance
+        var fare=1000;
+        document.getElementById("destination").attr("display:none",false);
+        document.getElementById("fareValue")=fare;
+        
+    }
+    
+  
+  </script>
+</head>
+
+<body>
+
+
+  
+  <form id="planJourney" method="POST" action="">
+    Origin:
+       <input type="text" name="origin" id="origin" disabled>
+       <select name="selectOrigin" id="selectOrigin" onselect="Write_origin()">
+         <option value="Chennai">Chennai</option>
+         <option value="Delhi">Delhi</option>
+         <option value="Goa">Goa</option>
+         <option value="Hyderabad">Hyderabad</option>
+         <option value="Mumbai">Mumbai</option>
+         <option value="Pune">Pune</option>
+       </select>
+       
+    Destination:
+       <input type="text" name="destination" id="destination" disabled>
+       <select name="selectdestination" id="selectdestination" onselect="Write_destination()">
+         <option value="Chennai">Chennai</option>
+         <option value="Delhi">Delhi</option>
+         <option value="Goa">Goa</option>
+         <option value="Hyderabad">Hyderabad</option>
+         <option value="Mumbai">Mumbai</option>
+         <option value="Pune">Pune</option>
+       </select>   
+    From: 
+    <input type="date" name="Fromdate" id="Fromdate" > 
+    To:
+    <input type="date" name="Todate" id="Todate">
+    
+    <input type="submit" value="GO TO NEXT STEP" onclick="calculateFare()">
+    
+  </form>
+<div id="ChennaiImages" style="display:none;">
+   <img src="">
+   <img src="">
+</div>
+<div id="DelhiImages" style="display:none;">
+   <img src="">
+   <img src="">
+</div>
+<div id="ChennaiImages" style="display:none;">
+   <img src="">
+   <img src="">
+</div>
+<div id="GoaImages" style="display:none;">
+   <img src="">
+   <img src="">
+</div>
+<div id="HyderabadImages" style="display:none;">
+   <img src="">
+   <img src="">
+</div>
+<div id="MumbaiImages" style="display:none;">
+   <img src="">
+   <img src="">
+</div>
+
+
+<div id="fare" style="display:none">
+   <h1 id="farevalue"></h1>
+</div>
+
+<script src="jquery-1.12.0.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+3) Closest to zero 									    20 Marks
+
+This problem is also called minimum absolute sum pair. You are given an array of integers, containing both +ve and -ve numbers. You need to find the two elements such that their sum is closest to zero. eg. Array [15, 5, -20, 30, -45] Output should be 15, -20.
+
+Note: We want the sum to be closest to zero not minimum. The minimum in the above example would be (-20, -45), but that is incorrect.
+
+
+
+#include<iostream>
+#include<stdlib.h>
+#include<climits>
+#include<algorithm>
+
+using namespace std;
+
+void Find(int arr[],int l,int r){
+
+  int a,b;
+  int curr;
+  int res=INT_MAX;
+  sort(arr,arr+r+1);
+  
+  if(l==r || l>r){
+    cout<<"No pairs.";
+    return ;
+  }
+  
+  while(l<r){
+    curr=abs(arr[l]+arr[r]);
+    if(res>curr){
+      res=curr;
+      a=l;
+      b=r;
+    }
+    if(arr[l]+arr[r]<0){
+      l++;
+    }else{
+      r--;
+    }
+  }
+
+  cout<<arr[a]<<","<<arr[b];
+
+}
+
+
+int main(){
+
+  int i,size;
+  cout<<"Enter the size of array.";
+  cin>>size;
+  int arr[size];
+  for(i=0;i<size;i++){
+    cin>>arr[i];
+  }
+
+  Find(arr,0,size-1);
+
+  return 0;
+}
+
+
+
