@@ -50,6 +50,7 @@ int main()
 }
 
 Time complexity: O(n) and no extra space.
+We can also do above problem using stl map but there will need auxiliary space of O(n).
 
 
 
